@@ -8,11 +8,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.deepOrange,
+      ),
       home: Scaffold(
         appBar: AppBar(
           title: Text("App Title"),
         ),
-        body: ProductManager("Staaaa"),
+        body: ProductManager(startingProduct: "Named argument.",),
       ),
     );
   }

@@ -5,7 +5,7 @@ import 'package:flutter_practice/products.dart';
 class ProductManager extends StatefulWidget {
   final String startingProduct;
 
-  ProductManager(this.startingProduct);
+  ProductManager({this.startingProduct = 'Default argument'});
 
   @override
   _ProductManagerState createState() => _ProductManagerState();
@@ -27,6 +27,7 @@ class _ProductManagerState extends State<ProductManager> {
         Container(
           margin: EdgeInsets.all(5.0),
           child: RaisedButton(
+            color: Theme.of(context).primaryColor,
             child: Text("Press me!"),
             onPressed: () {
               setState(() {
