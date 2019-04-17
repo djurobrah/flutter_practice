@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("App Title"),
         ),
-        body: ProductManager(startingProduct: "Named argument.",),
+        body: ProductManager(),
       ),
     );
   }
