@@ -17,15 +17,20 @@ class Products extends StatelessWidget {
     );
   }
 
+  Widget _buildProductList() {
+    if (products.length > 0) {
+      return ListView.builder(
+        itemBuilder: _buildProductItem,
+        itemCount: products.length,
+      );
+    }
+    return Center(
+      child: Text("No products found, please add some!"),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return products.length > 0
-        ? ListView.builder(
-            itemBuilder: _buildProductItem,
-            itemCount: products.length,
-          )
-        : Center(
-            child: Text("No products found, please add some!"),
-          );
+    return _buildProductList();
   }
 }
