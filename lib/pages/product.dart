@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ProductPage extends StatelessWidget {
-  
   final String title;
   final String imageUrl;
 
@@ -19,7 +18,9 @@ class ProductPage extends StatelessWidget {
           Image.asset(imageUrl),
           Text(title),
           RaisedButton(
-              child: Text("Back"), onPressed: () => Navigator.pop(context))
+            child: Text("Delete"),
+            onPressed: () => Navigator.pop(context, true),
+          )
         ],
       ),
     );
