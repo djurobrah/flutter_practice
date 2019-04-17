@@ -14,15 +14,14 @@ class ProductManager extends StatefulWidget {
 
 class _ProductManagerState extends State<ProductManager> {
   List<String> _products = [];
-  
+
   @override
-  void initState() { //executed before the widget is built
-    _products.add(widget.startingProduct);
+  void initState() {
     super.initState();
+    _products.add(widget.startingProduct);
   }
-  
-  void _addProducts(String product)
-  {
+
+  void _addProducts(String product) {
     setState(() {
       _products.add(product);
     });
@@ -36,7 +35,9 @@ class _ProductManagerState extends State<ProductManager> {
           margin: EdgeInsets.all(5.0),
           child: ProductControl(_addProducts),
         ),
-        Products(_products),
+        Expanded(
+          child: Products(_products),
+        ),
       ],
     );
   }
