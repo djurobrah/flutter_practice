@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class ProductPage extends StatelessWidget {
   final String title;
@@ -8,20 +9,28 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Image.asset(imageUrl),
-          Text(title),
-          RaisedButton(
-            child: Text("Delete"),
-            onPressed: () => Navigator.pop(context, true),
-          )
-        ],
+    return WillPopScope(
+      onWillPop: ()
+      {
+        print('BackButtonPressed');
+        Navigator.pop(context, false);
+        return Future.value(false);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(title),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.asset(imageUrl),
+            Text(title),
+            RaisedButton(
+              child: Text("Delete"),
+              onPressed: () => Navigator.pop(context, true),
+            )
+          ],
+        ),
       ),
     );
   }
