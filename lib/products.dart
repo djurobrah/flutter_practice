@@ -6,7 +6,7 @@ class Products extends StatelessWidget {
   final List<Map<String, String>> products;
 
   final Function deleteProducts;
-  
+
   Products(this.products, {this.deleteProducts});
 
   Widget _buildProductItem(BuildContext context, int index) {
@@ -21,19 +21,13 @@ class Products extends StatelessWidget {
             children: <Widget>[
               FlatButton(
                 child: Text("Details"),
-                onPressed: () => Navigator.push<bool>(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => ProductPage(
-                              products[index]['title'],
-                              products[index]['image'])),
-                    ).then((bool value)
-                {
-                  if(value)
-                  {
-                    deleteProducts(index);
-                  }
-                }),
+                onPressed: () => Navigator.pushNamed<bool>(
+                            context, '/product/' + index.toString())
+                        .then((bool value) {
+                      if (value) {
+                        deleteProducts(index);
+                      }
+                    }),
               ),
             ],
           ),
