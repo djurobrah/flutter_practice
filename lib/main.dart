@@ -5,7 +5,6 @@ import 'package:flutter_practice/pages/product.dart';
 import 'package:flutter_practice/pages/products.dart';
 import 'package:flutter_practice/pages/products_admin.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -33,6 +32,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
+        accentColor: Colors.deepPurple,
+        fontFamily: 'Monserrat',
       ),
       routes: {
         '/': (BuildContext context) => AuthPage(),
