@@ -10,9 +10,9 @@ class ProductCreatePage extends StatefulWidget {
 }
 
 class _ProductCreatePageState extends State<ProductCreatePage> {
-  String titleValue = '';
-  String descValue = '';
-  double priceValue = 0;
+  String _titleValue = '';
+  String _descValue = '';
+  double _priceValue = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -23,37 +23,37 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
           TextField(
             decoration: InputDecoration(labelText: 'Product Title'),
             onChanged: (String value) {
-              setState(() => titleValue = value);
+              setState(() => _titleValue = value);
             },
           ),
           TextField(
             decoration: InputDecoration(labelText: 'Product Description'),
             onChanged: (String value) {
-              setState(() => descValue = value);
+              setState(() => _descValue = value);
             },
             maxLines: 2,
           ),
           TextField(
             decoration: InputDecoration(labelText: 'Product Price'),
             onChanged: (String value) {
-              setState(() => priceValue = double.parse(value));
+              setState(() => _priceValue = double.parse(value));
             },
             keyboardType: TextInputType.number,
           ),
-          SizedBox(height: 10.0,),
+          SizedBox(height: 20.0,),
           RaisedButton(
             child: Text('Save'),
             color: Theme.of(context).accentColor,
             textColor: Colors.white,
             onPressed: () {
               final Map<String, dynamic> product = {
-                'title': titleValue,
-                'description': descValue,
-                'price': priceValue,
+                'title': _titleValue,
+                'description': _descValue,
+                'price': _priceValue,
                 'image': "assets/image.jpg"
               };
               widget.addProduct(product);
-              Navigator.pushReplacementNamed(context, "/");
+              Navigator.pushReplacementNamed(context, "/products");
             },
           )
         ],
