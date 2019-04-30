@@ -3,35 +3,11 @@ import 'dart:async';
 
 class ProductPage extends StatelessWidget {
   final String title;
-  final String imageUrl;
-
-  ProductPage(this.title, this.imageUrl);
-
-  _showWarningDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Are you sure?"),
-            content: Text("This action can not be undone!"),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("Discard"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              FlatButton(
-                child: Text("Continue"),
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context, true);
-                },
-              )
-            ],
-          );
-        });
-  }
+  final String image;
+  final double price;
+  final String desc;
+  
+  ProductPage(this.title, this.image, this.price, this.desc);
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +22,31 @@ class ProductPage extends StatelessWidget {
           title: Text(title),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset(imageUrl),
-            Text(title),
-            RaisedButton(
-              child: Text("Delete"),
-              onPressed: () => _showWarningDialog(context),
-            )
+            Image.asset(image),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 26.0,
+                fontFamily: "Montserrat",
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text("Union Square, San Francisco"),
+                Container(
+                  child: Text("|"),
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                ),
+                Text("\$ " + price.toString()),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(desc),
+            ),
           ],
         ),
       ),

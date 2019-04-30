@@ -48,7 +48,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
             onPressed: () {
               final Map<String, dynamic> product = {
                 'title': _titleValue,
-                'description': _descValue,
+                'desc': _descValue,
                 'price': _priceValue,
                 'image': "assets/image.jpg"
               };
