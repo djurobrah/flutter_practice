@@ -55,12 +55,18 @@ class Products extends StatelessWidget {
             alignment: MainAxisAlignment.center,
             children: <Widget>[
               IconButton(
-                icon: Icon(Icons.info, size: 30.0,),
+                icon: Icon(
+                  Icons.info,
+                  size: 30.0,
+                ),
                 onPressed: () => Navigator.pushNamed<bool>(
                     context, '/product/' + index.toString()),
               ),
               IconButton(
-                icon: Icon(Icons.favorite_border, size: 30.0,),
+                icon: Icon(
+                  Icons.favorite_border,
+                  size: 30.0,
+                ),
                 onPressed: () => Navigator.pushNamed<bool>(
                     context, '/product/' + index.toString()),
               ),

@@ -6,7 +6,7 @@ class ProductPage extends StatelessWidget {
   final String image;
   final double price;
   final String desc;
-  
+
   ProductPage(this.title, this.image, this.price, this.desc);
 
   @override

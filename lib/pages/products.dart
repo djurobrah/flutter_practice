@@ -31,7 +31,10 @@ class ProductsPage extends StatelessWidget {
         title: Text("App Title"),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.favorite, color: Colors.white,),
+            icon: Icon(
+              Icons.favorite,
+              color: Colors.white,
+            ),
             onPressed: null,
           )
         ],
