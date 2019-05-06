@@ -34,6 +34,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.deepOrange,
         accentColor: Colors.deepPurple,
         fontFamily: 'Montserrat',
+        buttonColor: Colors.deepPurple,
       ),
       routes: {
         '/': (BuildContext context) => AuthPage(),
