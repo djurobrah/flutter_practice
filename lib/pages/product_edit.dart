@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
-class ProductCreatePage extends StatefulWidget {
+class ProductEditPage extends StatefulWidget {
   final Function addProduct;
+  final Function updateProduct;
 
-  ProductCreatePage(this.addProduct);
+  final Map<String, dynamic> product;
+
+  ProductEditPage({this.addProduct, this.updateProduct, this.product});
 
   @override
-  _ProductCreatePageState createState() => _ProductCreatePageState();
+  _ProductEditPageState createState() => _ProductEditPageState();
 }
 
-class _ProductCreatePageState extends State<ProductCreatePage> {
+class _ProductEditPageState extends State<ProductEditPage> {
   final Map<String, dynamic> _formData = {
     'title': null,
     'desc': null,
@@ -22,6 +25,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   Widget _buildTitleTextField() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Product Title'),
+      initialValue: widget.product == null ? '' : widget.product['title'],
       validator: (String value) {
         if (value.isEmpty || value.length < 5) {
           return 'Title is required and should be 5+ characters long.';
@@ -36,6 +40,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   Widget _buildDescTextField() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Product Description'),
+      initialValue: widget.product == null ? '' : widget.product['desc'],
       validator: (String value) {
         if (value.isEmpty || value.length < 10) {
           return 'Description is required and should be 10+ characters long.';
@@ -51,6 +56,8 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   Widget _buildPriceTextField() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Product Price'),
+      initialValue:
+          widget.product == null ? '' : widget.product['price'].toString(),
       validator: (String value) {
         if (value.isEmpty ||
             !RegExp(r'^(?:[1-9]\d*|0)?(?:\.\d+)?$').hasMatch(value)) {
@@ -80,7 +87,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
     final double targetWidth = deviceWidth > 550.0 ? 500.0 : deviceWidth * 0.95;
     final double targetPadding = deviceWidth - targetWidth;
 
-    return Container(
+    final Widget pageContent = Container(
       margin: EdgeInsets.all(20.0),
       child: Form(
         key: _formKey,
@@ -102,5 +109,14 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
         ),
       ),
     );
+
+    return widget.product == null
+        ? pageContent
+        : Scaffold(
+            appBar: AppBar(
+              title: Text("Edit Product"),
+            ),
+            body: pageContent,
+          );
   }
 }
