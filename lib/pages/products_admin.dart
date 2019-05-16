@@ -5,13 +5,14 @@ import 'product_list.dart';
 
 class ProductAdminPage extends StatelessWidget {
   final Function addProduct;
+  final Function updateProduct;
   final Function deleteProduct;
   final List<Map<String, dynamic>> products;
 
-  ProductAdminPage(this.addProduct, this.deleteProduct, this.products);
+  ProductAdminPage(
+      this.addProduct, this.updateProduct, this.deleteProduct, this.products);
 
-  Widget _buildSideDrawer(BuildContext context)
-  {
+  Widget _buildSideDrawer(BuildContext context) {
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -30,6 +31,7 @@ class ProductAdminPage extends StatelessWidget {
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -54,7 +56,7 @@ class ProductAdminPage extends StatelessWidget {
           body: TabBarView(
             children: <Widget>[
               ProductEditPage(addProduct: addProduct),
-              ProductListPage(products),
+              ProductListPage(products, updateProduct),
             ],
           ),
         ));
