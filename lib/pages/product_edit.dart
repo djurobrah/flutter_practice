@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_practice/models/product.dart';
 
 class ProductEditPage extends StatefulWidget {
   final Function addProduct;
   final Function updateProduct;
-  final Map<String, dynamic> product;
+  final Product product;
   final int productIndex;
 
-  ProductEditPage(
-      {this.addProduct, this.updateProduct, this.product, this.productIndex});
+  ProductEditPage({
+    this.addProduct,
+    this.updateProduct,
+    this.product,
+    this.productIndex,
+  });
 
   @override
   _ProductEditPageState createState() => _ProductEditPageState();
@@ -16,7 +21,7 @@ class ProductEditPage extends StatefulWidget {
 class _ProductEditPageState extends State<ProductEditPage> {
   final Map<String, dynamic> _formData = {
     'title': null,
-    'desc': null,
+    'description': null,
     'price': null,
     'image': "assets/image.jpg"
   };
@@ -26,7 +31,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
   Widget _buildTitleTextField() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Product Title'),
-      initialValue: widget.product == null ? '' : widget.product['title'],
+      initialValue: widget.product == null ? '' : widget.product.title,
       validator: (String value) {
         if (value.isEmpty || value.length < 5) {
           return 'Title is required and should be 5+ characters long.';
@@ -41,7 +46,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
   Widget _buildDescTextField() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Product Description'),
-      initialValue: widget.product == null ? '' : widget.product['desc'],
+      initialValue: widget.product == null ? '' : widget.product.description,
       validator: (String value) {
         if (value.isEmpty || value.length < 10) {
           return 'Description is required and should be 10+ characters long.';
@@ -49,7 +54,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
       },
       maxLines: 2,
       onSaved: (String value) {
-        _formData['desc'] = value;
+        _formData['description'] = value;
       },
     );
   }
@@ -58,7 +63,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Product Price'),
       initialValue:
-          widget.product == null ? '' : widget.product['price'].toString(),
+          widget.product == null ? '' : widget.product.price.toString(),
       validator: (String value) {
         if (value.isEmpty ||
             !RegExp(r'^(?:[1-9]\d*|0)?(?:\.\d+)?$').hasMatch(value)) {
@@ -79,9 +84,22 @@ class _ProductEditPageState extends State<ProductEditPage> {
     }
     _formKey.currentState.save();
     if (widget.product == null) {
-      widget.addProduct(_formData);
+      widget.addProduct(
+        Product(
+            title: _formData['title'],
+            description: _formData['description'],
+            price: _formData['price'],
+            image: _formData['image']),
+      );
     } else {
-      widget.updateProduct(widget.productIndex, _formData);
+      widget.updateProduct(
+        widget.productIndex,
+        Product(
+            title: _formData['title'],
+            description: _formData['description'],
+            price: _formData['price'],
+            image: _formData['image']),
+      );
     }
 
     Navigator.pushReplacementNamed(context, "/products");
