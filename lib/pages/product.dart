@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_practice/models/product.dart';
+import 'package:flutter_practice/scoped-models/products.dart';
 import 'dart:async';
 
 import 'package:flutter_practice/widget/ui_elements/title_default.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class ProductPage extends StatelessWidget {
-  final String title;
-  final String image;
-  final double price;
-  final String desc;
+  final int productIndex;
 
-  ProductPage(this.title, this.image, this.price, this.desc);
+  ProductPage(this.productIndex);
 
-  Row _buildAddressPriceRow()
-  {
+  Row _buildAddressPriceRow(double price) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -25,7 +24,7 @@ class ProductPage extends StatelessWidget {
       ],
     );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -34,24 +33,27 @@ class ProductPage extends StatelessWidget {
         Navigator.pop(context, false);
         return Future.value(false);
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-        ),
-        body: Column(
-          children: <Widget>[
-            Image.asset(image),
-            TitleDefault(title),
-            _buildAddressPriceRow(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(desc),
+      child: ScopedModelDescendant<ProductsModel>(
+        builder: (BuildContext context, Widget child, ProductsModel model) {
+          final Product product = model.products[productIndex];
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(product.title),
             ),
-          ],
-        ),
+            body: Column(
+              children: <Widget>[
+                Image.asset(product.image),
+                TitleDefault(product.title),
+                _buildAddressPriceRow(product.price),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(product.description),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
-
-  
 }
