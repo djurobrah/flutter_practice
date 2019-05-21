@@ -9,7 +9,7 @@ class ProductsModel extends Model {
     return List.from(_products);
   }
 
-  void addProducts(Product product) {
+  void addProduct(Product product) {
     _products.add(product);
   }
 

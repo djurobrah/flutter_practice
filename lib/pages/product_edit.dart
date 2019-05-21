@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/models/product.dart';
+import 'package:flutter_practice/scoped-models/products.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class ProductEditPage extends StatefulWidget {
   final Function addProduct;
@@ -77,14 +79,14 @@ class _ProductEditPageState extends State<ProductEditPage> {
     );
   }
 
-  void _submitForm() {
+  void _submitForm(Function addProduct, Function updateProduct) {
     if (!_formKey.currentState.validate()) // validates all Form Fields
     {
       return; // stops the rest of the code from executing if not all Form Fields are valid
     }
     _formKey.currentState.save();
     if (widget.product == null) {
-      widget.addProduct(
+      addProduct(
         Product(
             title: _formData['title'],
             description: _formData['description'],
@@ -92,7 +94,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
             image: _formData['image']),
       );
     } else {
-      widget.updateProduct(
+      updateProduct(
         widget.productIndex,
         Product(
             title: _formData['title'],
@@ -103,6 +105,18 @@ class _ProductEditPageState extends State<ProductEditPage> {
     }
 
     Navigator.pushReplacementNamed(context, "/products");
+  }
+
+  Widget _buildSubmitButton() {
+    return ScopedModelDescendant<ProductsModel>(
+      builder: (BuildContext context, Widget child, ProductsModel model) {
+        return RaisedButton(
+          child: Text("Save"),
+          textColor: Colors.white,
+          onPressed: () => _submitForm(model.addProduct, model.updateProduct),
+        );
+      },
+    );
   }
 
   Widget _buildPageContent(BuildContext context) {
@@ -122,11 +136,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
             SizedBox(
               height: 20.0,
             ),
-            RaisedButton(
-              child: Text('Save'),
-              textColor: Colors.white,
-              onPressed: _submitForm,
-            )
+            _buildSubmitButton()
           ],
         ),
       ),
