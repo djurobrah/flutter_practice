@@ -83,7 +83,6 @@ class _AuthPageState extends State<AuthPage> {
     }
     _formKey.currentState.save();
     Navigator.pushReplacementNamed(context, "/products");
-    print(_formData['email'] + " " + _formData['password']);
   }
 
   @override

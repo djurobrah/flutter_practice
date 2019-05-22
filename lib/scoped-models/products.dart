@@ -4,14 +4,23 @@ import 'package:flutter_practice/models/product.dart';
 
 class ProductsModel extends Model {
   List<Product> _products = [];
-
   int _selectedProductIndex;
+  bool _showFavorites = false;
 
   List<Product> get products {
     return List.from(_products);
   }
 
+  List<Product> get displayedProducts {
+    if (_showFavorites) {
+      return _products.where((Product product) => product.isFavorite).toList();
+    }
+    return List.from(_products);
+  }
+
   int get selectedProductIndex => _selectedProductIndex;
+
+  bool get showFavorites => _showFavorites;
 
   Product get selectedProduct {
     if (_selectedProductIndex == null) {
@@ -57,5 +66,11 @@ class ProductsModel extends Model {
     _products.removeAt(_selectedProductIndex);
     _selectedProductIndex = null;
     notifyListeners();
+  }
+
+  void toggleDisplayFavorites() {
+    _showFavorites = !_showFavorites;
+    notifyListeners();
+    _selectedProductIndex = null;
   }
 }
