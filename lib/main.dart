@@ -4,7 +4,7 @@ import 'package:flutter_practice/pages/auth.dart';
 import 'package:flutter_practice/pages/product.dart';
 import 'package:flutter_practice/pages/products.dart';
 import 'package:flutter_practice/pages/products_admin.dart';
-import 'package:flutter_practice/scoped-models/products.dart';
+import 'package:flutter_practice/scoped-models/main.dart';
 
 import 'package:scoped_model/scoped_model.dart';
 
@@ -18,8 +18,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return ScopedModel<ProductsModel>(
-      model: ProductsModel(),
+    return ScopedModel<MainModel>(
+      model: MainModel(),
       child: MaterialApp(
         theme: ThemeData(
           primarySwatch: Colors.deepOrange,
@@ -38,10 +38,9 @@ class _MyAppState extends State<MyApp> {
             return null;
           }
           if (pathElements[1] == "product") {
-          final int index = int.parse(pathElements[2]);
+            final int index = int.parse(pathElements[2]);
             return MaterialPageRoute<bool>(
-                builder: (BuildContext context) =>
-                    ProductPage(index));
+                builder: (BuildContext context) => ProductPage(index));
           }
           return null;
         },

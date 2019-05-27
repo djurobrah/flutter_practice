@@ -82,6 +82,7 @@ class _AuthPageState extends State<AuthPage> {
       return; // stops the rest of the code from executing if not all Form Fields are valid
     }
     _formKey.currentState.save();
+    
     Navigator.pushReplacementNamed(context, "/products");
   }
 
