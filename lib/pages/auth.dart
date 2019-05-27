@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_practice/scoped-models/main.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class AuthPage extends StatefulWidget {
   @override
@@ -76,13 +78,14 @@ class _AuthPageState extends State<AuthPage> {
     );
   }
 
-  _submitForm() {
-    if (!_formKey.currentState.validate() || _formData['acceptTerms'] == false) // validates all Form Fields
+  _submitForm(Function login) {
+    if (!_formKey.currentState.validate() ||
+        _formData['acceptTerms'] == false) // validates all Form Fields
     {
       return; // stops the rest of the code from executing if not all Form Fields are valid
     }
     _formKey.currentState.save();
-    
+    login(_formData['email'], _formData['password']);
     Navigator.pushReplacementNamed(context, "/products");
   }
 
@@ -113,10 +116,18 @@ class _AuthPageState extends State<AuthPage> {
                     _buildPasswordTextField(),
                     _buildAcceptSwitch(),
                     SizedBox(height: 20.0),
-                    RaisedButton(
-                      child: Text("Log In"),
-                      textColor: Colors.white,
-                      onPressed: _submitForm,
+                    ScopedModelDescendant<MainModel>(
+                      builder: (
+                        BuildContext context,
+                        Widget child,
+                        MainModel model,
+                      ) {
+                        return RaisedButton(
+                          child: Text("Log In"),
+                          textColor: Colors.white,
+                          onPressed: () => _submitForm(model.login),
+                        );
+                      },
                     ),
                   ],
                 ),
